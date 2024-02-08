@@ -846,7 +846,6 @@ dependencies = [
  "dioxus-web",
  "futures",
  "lol_stats",
- "tokio",
 ]
 
 [[package]]

@@ -1,14 +1,29 @@
 use dioxus::prelude::*;
-use lol_stats::model::get_items;
-use utils::async_block;
+use dioxus_web::Config;
+use lol_stats::{model::get_items, response::Item};
 
-mod utils;
-
-fn main() {
-    async_block(get_items());
-    // dioxus_web::launch(app);
+#[derive(Props, PartialEq)]
+struct Data {
+    pub items: Vec<Item>,
 }
 
-fn app(cx: Scope) -> Element {
-    render!("nothing yet")
+fn main() {
+    let data: Data = Data {
+        items: vec![],
+    };
+    dioxus_web::launch_with_props(app, data, Config::new());
+}
+
+fn app<'a>(cx: &'a Scoped<'a, Data>) -> Element<'a> {
+    let f = use_future(cx, (), |_| get_items());
+    match f.value() {
+        Some(items) => render!(
+            format!("{:?}", items.first().unwrap())
+        ),
+        None => render!(
+            div {
+                format!("loading")
+            }
+        ),
+    }
 }
