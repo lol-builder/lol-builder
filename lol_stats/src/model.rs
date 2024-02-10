@@ -42,3 +42,15 @@ pub async fn get_champions() -> Vec<Champion> {
     }
     champions
 }
+
+// pub async fn get_runes() -> Vec<MainRune> {
+//     let rune_file: serde_json::Map<String, Value> =
+//         get_endpoint("/data/en_US/runesReforged.json").await.unwrap();
+//     let runes_map: serde_json::Map<String, Value> =
+//     rune_file.get("data").unwrap().as_object().unwrap().clone();
+//     let mut runes: Vec<MainRune> = vec![];
+//     runes_map
+//         .iter()
+//         .for_each(|x| runes.push(serde_json::from_value(x.1.clone()).unwrap()));
+//     runes
+// }

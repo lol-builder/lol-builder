@@ -5,12 +5,13 @@ use wasm_bindgen::prelude::*;
 use lol_stats::{
     calc::{calc_stats, calc_total_auto_dmg},
     model::{get_champions, get_items},
-    response::{Champion, Item, Rune, Stats},
+    response::{Champion, Item, Stats},
 };
 
 struct App {
     items: Vec<Item>,
     champions: Vec<Champion>,
+    // runes: Vec<Rune>,
     // cur_items: Vec<Item>,
 }
 
@@ -19,15 +20,16 @@ impl App {
         Arc::new(Self {
             items,
             champions,
+            // runes,
             // cur_items: vec![],
         })
     }
 
     fn render(app: Arc<Self>) -> Dom {
-        let cur_champion = app.champions.get(18).unwrap();
+        let cur_champion = app.champions.get(30).unwrap();
         let items = vec![app.items.first().unwrap()];
-        let runes = vec![];
-        let stats = calc_stats(3., cur_champion, runes.clone(), items.clone());
+        // let runes = vec![];
+        let stats = calc_stats(3., cur_champion, items.clone());
         html!("div", {
             .children(
                 &mut [
@@ -39,9 +41,6 @@ impl App {
                     }),
                     html!("div", {
                         .text(format!("{:?}", stats).as_str())
-                    }),
-                    html!("div", {
-                        .text(format!("{:?}", runes).as_str())
                     }),
                     html!("div", {
                         .text(format!("{:?}", calc_total_auto_dmg(stats)).as_str())

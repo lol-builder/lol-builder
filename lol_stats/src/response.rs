@@ -30,11 +30,6 @@ pub struct Stats {
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
-pub enum Rune {
-
-}
-
-#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct Item {
     pub name: String,
     pub gold: Gold,
