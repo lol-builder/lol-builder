@@ -2,20 +2,52 @@ use dominator::{html, Dom};
 use std::sync::Arc;
 use wasm_bindgen::prelude::*;
 
-use lol_stats::{model::get_items, response::Item};
+use lol_stats::{
+    calc::{calc_stats, calc_total_auto_dmg},
+    model::{get_champions, get_items},
+    response::{Champion, Item, Rune, Stats},
+};
 
 struct App {
     items: Vec<Item>,
+    champions: Vec<Champion>,
+    // cur_items: Vec<Item>,
 }
 
 impl App {
-    fn new(items: Vec<Item>) -> Arc<Self> {
-        Arc::new(Self { items })
+    fn new(items: Vec<Item>, champions: Vec<Champion>) -> Arc<Self> {
+        Arc::new(Self {
+            items,
+            champions,
+            // cur_items: vec![],
+        })
     }
 
     fn render(app: Arc<Self>) -> Dom {
+        let cur_champion = app.champions.get(18).unwrap();
+        let items = vec![app.items.first().unwrap()];
+        let runes = vec![];
+        let stats = calc_stats(3., cur_champion, runes.clone(), items.clone());
         html!("div", {
-            .text(format!("{:#?}", app.items.first().unwrap()).as_str())
+            .children(
+                &mut [
+                    html!("div", {
+                        .text(format!("{:?}", items).as_str())
+                    }),
+                    html!("div", {
+                        .text(format!("{}", cur_champion.name).as_str())
+                    }),
+                    html!("div", {
+                        .text(format!("{:?}", stats).as_str())
+                    }),
+                    html!("div", {
+                        .text(format!("{:?}", runes).as_str())
+                    }),
+                    html!("div", {
+                        .text(format!("{:?}", calc_total_auto_dmg(stats)).as_str())
+                    }),
+                ]
+            )
         })
     }
 }
@@ -24,7 +56,10 @@ impl App {
 pub async fn main_js() -> Result<(), JsValue> {
     console_error_panic_hook::set_once();
 
-    let app = App::new(get_items().await);
+    let items = get_items();
+    let champions = get_champions();
+
+    let app = App::new(items.await, champions.await);
 
     dominator::append_dom(&dominator::body(), App::render(app));
 
