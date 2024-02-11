@@ -48,7 +48,73 @@ pub struct Gold {
 pub struct ItemStats {
     #[serde(rename = "FlatMovementSpeedMod")]
     #[serde(default)]
-    flat_movement_speed: f32,
+    flat_ms: f32,
+    #[serde(rename = "FlatHPPoolMod")]
+    #[serde(default)]
+    flat_hp: f32,
+    #[serde(rename = "FlatMPPoolMod")]
+    #[serde(default)]
+    flat_mana: f32,
+    #[serde(rename = "PercentHPPoolMod")]
+    #[serde(default)]
+    percent_hp: f32,
+    #[serde(rename = "PercentMPPoolMod")]
+    #[serde(default)]
+    percent_mana: f32,
+    #[serde(rename = "FlatHPRegenMod")]
+    #[serde(default)]
+    flat_hp_regen: f32,
+    #[serde(rename = "PercentHPRegenMod")]
+    #[serde(default)]
+    percent_hp_regen: f32,
+    #[serde(rename = "FlatMPRegenMod")]
+    #[serde(default)]
+    flat_mana_regen: f32,
+    #[serde(rename = "PercentMPRegenMod")]
+    #[serde(default)]
+    percent_mana_regen: f32,
+    #[serde(rename = "FlatArmorMod")]
+    #[serde(default)]
+    flat_armor: f32,
+    #[serde(rename = "PercentArmorMod")]
+    #[serde(default)]
+    percent_armor: f32,
+    #[serde(rename = "FlatPhysicalDamageMod")]
+    #[serde(default)]
+    flat_ad: f32,
+    #[serde(rename = "FlatMagicDamageMod")]
+    #[serde(default)]
+    flat_ap: f32,
+    #[serde(rename = "PercentPhysicalDamageMod")]
+    #[serde(default)]
+    percent_ad: f32,
+    #[serde(rename = "PercentMagicDamageMod")]
+    #[serde(default)]
+    percent_ap: f32,
+    #[serde(rename = "PercentMovementSpeedMod")]
+    #[serde(default)]
+    percent_ms: f32,
+    #[serde(rename = "FlatAttackSpeedMod")]
+    #[serde(default)]
+    flat_as: f32,
+    #[serde(rename = "PercentAttackSpeedMod")]
+    #[serde(default)]
+    percent_as: f32,
+    #[serde(rename = "FlatCritChanceMod")]
+    #[serde(default)]
+    flat_crit: f32,
+    #[serde(rename = "FlatEnergyRegenMod")]
+    #[serde(default)]
+    flat_energy_regen: f32,
+    #[serde(rename = "FlatEnergyPoolMod")]
+    #[serde(default)]
+    flat_energy: f32,
+    #[serde(rename = "PercentLifeStealMod")]
+    #[serde(default)]
+    percent_lifesteal: f32,
+    #[serde(rename = "PercentSpellVampMod")]
+    #[serde(default)]
+    percent_spellvamp: f32,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
